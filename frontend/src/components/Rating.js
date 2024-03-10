@@ -11,7 +11,7 @@ function Rating({ value, text, color }) {
             className={
               value >= index + 1
                 ? 'fas fa-star'
-                : value >= index + 1-0.5
+                : value >= index + 0.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
             }

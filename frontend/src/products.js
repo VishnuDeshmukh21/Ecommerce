@@ -12,7 +12,7 @@ const products = [
     'ingredients':
       ' Melted chocolate, Butter, Eggs, Sugar, Flour, Cocoa powder, Salt, Natural vanilla extract (Brand:Sprig).',
     'price': 89,
-    'countInStock': 10,
+    'countInStock': 0,
     'rating': 4.5,
     'numReviews': 12,
     'image': '/images/SudhaRich.jpg',

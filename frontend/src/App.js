@@ -7,15 +7,19 @@ import Footer from './components/Footer';
 import './index.css'
 import './bootstrap.min.css'
 import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+
 
 function App() {
   return (
     <Router>
       <Header />
-      <main class="py-3">
+      <main className="py-3">
         <Container>
         <Routes>
-          <Route path='/' Component={ HomeScreen} exact/>
+          <Route path="/" element={< HomeScreen/>} exact/>
+          <Route path="/product/:id" element={ <ProductScreen/>}/>
+
         </Routes>
         </Container>
       </main>
