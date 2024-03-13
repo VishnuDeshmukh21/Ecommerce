@@ -17,7 +17,7 @@ function Product({ product }) {
      
       <Card.Text as='div' className='col-md-6'>
         <div className='my-3'>
-          <Rating value={product.rating} text={`(${product.numReviews})`} color={'#fae845'}/>
+          <Rating value={product.rating} text={`(${product.numReviews !== null ?product.numReviews: 0   })`} color={'#fae845'}/>
         </div>
       </Card.Text> 
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import React , {useState , useEffect}from 'react';
+import axios from 'axios'
 import {Link} from 'react-router-dom'
 import { Row, Col , Button, Card, Image } from 'react-bootstrap';
-import products from '../products.js';
 import Rating from '../components/Rating.js'
 import { useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -9,8 +9,25 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 
 function ProductScreen({ match }) {
+
+  const [product, setProduct]=useState({})
   const {id} = useParams();
-  const product= products.find((p) => p._id === id  )
+
+
+  useEffect(() => {
+    async function fetchProduct( ) {
+      try {
+        const { data } = await axios.get(`/api/products/${id}`);
+        setProduct(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
+    fetchProduct();
+  }, [id]);
+
+
+  // const product= products.find((p) => p._id === id  )
   return (
     <div>
       <Link to ='/' className='btn btn-light my-3'>Go Back </Link>
@@ -26,7 +43,7 @@ function ProductScreen({ match }) {
           </ListGroup.Item>
 
           <ListGroup.Item>
-          <Rating value={product.rating} text={`(${product.numReviews})`} color={'#fae845'}/>
+          <Rating value={product.rating} text={`(${product.numReviews !== null ?product.numReviews: 0   })`} color={'#fae845'}/>
           </ListGroup.Item>
 
           {/* <ListGroup.Item>
