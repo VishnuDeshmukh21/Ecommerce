@@ -78,7 +78,7 @@ class SEO(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,blank=True)
     _id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -105,10 +105,10 @@ class Product(models.Model):
     isStockInHand = models.BooleanField(default=True)
     vegIndicator = models.CharField(max_length=20, blank=True)
     earliestDeliverySlot = models.ForeignKey(DeliverySlot, on_delete=models.SET_NULL, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='products')
-    user_order_items = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='product_user_order_items')  # Field for user order items
-    othersReviews = models.JSONField(default=list)    # Field for other reviews
-    seo = models.JSONField(default=dict)            # Field for SEO information
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='products',blank=True)
+    user_order_items = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='product_user_order_items',blank=True)  # Field for user order items
+    othersReviews = models.JSONField(default=list,null=True,blank=True)    # Field for other reviews
+    seo = models.JSONField(default=dict,null=True,blank=True)            # Field for SEO information
     created_at = models.DateTimeField(auto_now_add=True)
     edited_at = models.DateTimeField(auto_now=True, editable=False)
     
@@ -173,27 +173,3 @@ class ShippingAddress(models.Model):
 
   def __str__(self):
     return f'{self.address }'
-
-@receiver(post_save, sender=Product)
-def update_category_counts(sender, instance, created, **kwargs):
-    if created and instance.category is not None:
-        # Update product count
-        instance.category.productCount += 1
-        
-        # Update stock count
-        instance.category.stockCount += instance.quantityAvailable
-        
-        # Save the category object
-        instance.category.save(update_fields=['productCount', 'stockCount'])
-
-@receiver(post_delete, sender=Product)
-def update_category_counts_on_delete(sender, instance, **kwargs):
-    if instance.category is not None:
-        # Update product count
-        instance.category.productCount -= 1
-        
-        # Update stock count
-        instance.category.stockCount -= instance.quantityAvailable
-        
-        # Save the category object
-        instance.category.save(update_fields=['productCount', 'stockCount'])
