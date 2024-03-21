@@ -148,7 +148,6 @@ export const getUserDetails = ( id)=> async (dispatch,getState) => {
 
 export const updateProfile = ( user)=> async (dispatch,getState) => {
   try{
-    console.log("User", user)
     dispatch({ type:USER_PROFILE_UPDATE_REQUEST })
     const {
       userLogin:{userInfo}

@@ -24,7 +24,6 @@ function ProductScreen() {
 
   const addToCartHandler= ()=>{
     navigate(`/cart/${id} ? qty=${qty}`)
-    console.log("fadg", id)
   }
 
   // const product= products.find((p) => p._id === id  )

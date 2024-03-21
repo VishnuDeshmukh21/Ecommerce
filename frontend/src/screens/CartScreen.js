@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Row, Col ,ListGroup ,Image, Form, Button,Card } from 'react-bootstrap'
 import  Message  from '../components/Message'
-import { addToCart ,removeFromCar} from '../actions/cartActions'
+import { addToCart ,removeFromCart} from '../actions/cartActions'
 import { useParams,useLocation  } from 'react-router-dom'
 
 
@@ -29,11 +29,11 @@ function CartScreen() {
   },[dispatch,id,qty])
 
 const removeFromCarthandler = (id)=>{
-      dispatch(removeFromCar(id))
+      dispatch(removeFromCart(id))
 }
 
 const checkoutHandler = ()=>{
-  navigate(`/login?redirect=shipping`)
+  navigate(`/shipping`)
 }
   return (
     <Row>
